@@ -1,13 +1,13 @@
 let myGamePiece;
 
-function startGame() {
+const startGame = () => {
     myGamePiece = new component(30, 30, "brown", window.innerWidth/2, 120);
     myGameArea.start();
 }
 
 let myGameArea = {
     canvas: document.createElement("canvas"),
-    start: function() {
+    start() {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight * 0.4;
         this.canvas.backgroundColor = "#87ceeb"
@@ -18,14 +18,14 @@ let myGameArea = {
         this.interval = setInterval(updateGameArea, 20);
         },
 
-    clear: function() {
+    clear() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.context.fillStyle = "#87ceeb";
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     },
 
-    checkWin: function() {
-        if (myGamePiece.x >= myGameArea.canvas.width - myGamePiece.width) {
+    checkWin() {
+        if (myGamePiece.x >= this.canvas.width - myGamePiece.width) {
             const playerOneScore = document.querySelector(".player-one-score span");
             playerOneScore.innerText = parseInt(playerOneScore.innerText) + 1;
             return true;
@@ -36,7 +36,7 @@ let myGameArea = {
         }
     },
 
-    reset: function() {
+    reset() {
         clearInterval(this.start.interval);
         startGame();
     }
@@ -58,7 +58,7 @@ function component(width, height, color, x, y) {
     }    
 }
 
-function updateGameArea() {
+const updateGameArea = () => {
     if (myGameArea.checkWin()) {
         myGameArea.reset();
     } else {
@@ -68,11 +68,11 @@ function updateGameArea() {
     }
 }
 
-function moveLeft() {
+const moveLeft = () => {
     myGamePiece.x -= 20; 
 }
 
-function moveRight() {
+const moveRight = () => {
     myGamePiece.x += 20; 
 }
 
