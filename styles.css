@@ -1,0 +1,29 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+header {
+    height: 10%
+}
+
+section {
+    height: 10%;
+}
+
+main {
+    height: 80%;
+}
+
+main div {
+    height: 200px;
+    width: 200px;
+    background-color: brown;
+    transform: translate(0px);
+}
