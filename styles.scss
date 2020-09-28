@@ -6,8 +6,6 @@
 }
 
 body {
-    height: 100vh;
-    width: 100vw;
     background-color: #73C3EC;
 }
 
@@ -17,7 +15,7 @@ header {
     align-items: center;
 
     h1 {
-        width: 100vw;
+        width: 100%;
         display: flex;
         justify-content: center;
     }
@@ -31,6 +29,13 @@ header {
 
 section {
     height: 10%;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+
+    p {
+        display: inline;
+    }
 }
 
 main {

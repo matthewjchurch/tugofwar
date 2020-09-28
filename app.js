@@ -1,4 +1,6 @@
 let myGamePiece;
+const playerOneHealth = document.querySelector(".player-one.health");
+const playerTwoHealth = document.querySelector(".player-two.health");
 
 function component(width, height, color, x, y) {
     this.width = width;
@@ -7,7 +9,7 @@ function component(width, height, color, x, y) {
     this.x = x;
     this.y = y;
     this.update = function() {
-        ctx = myGameArea.context;
+        ctx = myGameArea.ctx;
         ctx.fillStyle = color;
         ctx.arc(this.x, this.y, this.width, 0, 2 * Math.PI);
         ctx.fill();
@@ -19,7 +21,7 @@ function component(width, height, color, x, y) {
 
 const startGame = () => {
     myGameArea.start();
-    myGamePiece = new component(10, 10, myGameArea.context.pattern, window.innerWidth/2, myGameArea.context.lineHeight);
+    myGamePiece = new component(10, 10, myGameArea.ctx.pattern, window.innerWidth/2, myGameArea.ctx.lineHeight);
     
     
 }
@@ -32,27 +34,26 @@ const myGameArea = {
     start() {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight * 0.8;
-        this.context = this.canvas.getContext("2d");
-        this.context.pattern = this.context.createPattern(this.rope, "repeat");
-        this.context.lineHeight = this.canvas.height * 0.9;
-        this.context.drawImage(this.background, 0, 0, this.canvas.width, this.canvas.height);
-        this.context.moveTo(0, this.canvas.height);
-        this.context.lineWidth = 10;
-        this.context.lineTo(this.canvas.width, this.canvas.height);
-        this.context.strokeStyle = this.context.pattern;
-        this.context.stroke();
+        this.ctx = this.canvas.getContext("2d");
+        this.ctx.pattern = this.ctx.createPattern(this.rope, "repeat");
+        this.ctx.lineHeight = this.canvas.height * 0.9;
+        this.ctx.drawImage(this.background, 0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.moveTo(0, this.canvas.height);
+        this.ctx.lineWidth = 10;
+        this.ctx.lineTo(this.canvas.width, this.canvas.height);
+        this.ctx.strokeStyle = this.ctx.pattern;
+        this.ctx.stroke();
         document.body.append(this.canvas);
-        this.interval = setInterval(updateGameArea, 20);
         },
 
     clear() {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.context.drawImage(document.querySelector(".background"), 0, 0, this.canvas.width, this.canvas.height);
-        this.context.beginPath();
-        this.context.moveTo(0, this.context.lineHeight);
-        this.context.lineTo(this.canvas.width, this.context.lineHeight);
-        this.context.strokeStyle = this.context.pattern;
-        this.context.stroke();
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.drawImage(document.querySelector(".background"), 0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, this.ctx.lineHeight);
+        this.ctx.lineTo(this.canvas.width, this.ctx.lineHeight);
+        this.ctx.strokeStyle = this.ctx.pattern;
+        this.ctx.stroke();
     },
 
     checkWin() {
@@ -68,8 +69,9 @@ const myGameArea = {
     },
 
     reset() {
-        clearInterval(this.start.interval);
+        clearInterval(interval);
         startGame();
+        interval = setInterval(updateGameArea, 20);
     }
 }
 
@@ -77,18 +79,40 @@ const updateGameArea = () => {
     if (myGameArea.checkWin()) {
         myGameArea.reset();
     } else {
+    document.querySelectorAll(".health").forEach(meter => meter.value += 0.8);
     myGameArea.clear();
     myGamePiece.newPos();    
     myGamePiece.update();
     }
 }
 
+let interval = setInterval(updateGameArea, 20);
+
 const moveLeft = () => {
-    myGamePiece.x -= 20; 
+    playerOneHealth.value -= 5
+    if (playerOneHealth.value > 40) {
+        myGamePiece.x -= 20;
+    } else if (playerOneHealth.value > 20) {
+        myGamePiece.x -= 15;
+    } else if (playerOneHealth.value > 0) {
+        myGamePiece.x -= 10;
+    }
+    else {
+        myGamePiece.x -= 5
+    }
 }
 
 const moveRight = () => {
-    myGamePiece.x += 20; 
+    playerTwoHealth.value -= 5;
+    if (playerTwoHealth.value > 40) {
+        myGamePiece.x += 20;
+    } else if (playerTwoHealth.value > 20) {
+        myGamePiece.x += 15;
+    } else if (playerTwoHealth.value > 0) {
+        myGamePiece.x += 10;
+    } else {
+        myGamePiece.x += 5
+    }
 }
 
 document.addEventListener("keydown", (e) => {
@@ -121,4 +145,4 @@ window.onload = startGame();
 
 window.addEventListener("resize", () => {
     startGame();
-});
+});  

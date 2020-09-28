@@ -11,10 +11,16 @@
         <h1>Tug of war</h1>
         <button>Reset</button>
     </header>
+    <h2>Scoreboard</h2>
     <section>
-        <h2>Scoreboard</h2>
-        <p class="player-one-score">Player 1: <span>0</span></p>
-        <p class="player-two-score">Player 2: <span>0</span></p>
+        <div>
+            <p class="player-one-score">Player 1: <span>0</span></p>
+            <meter class="player-one health" optimum="60" high="40" low="20" value="60" min="0" max="60"></meter>
+        </div>
+        <div>
+            <p class="player-two-score">Player 2: <span>0</span></p>
+            <meter class="player-two health" optimum="60" high="40" low="20" value="60" min="0" max="60"></meter>
+        </div>
     </section>
 
     <img class="background" src="http://clipart-library.com/img1/1084918.jpg" alt="Sunny day background">
