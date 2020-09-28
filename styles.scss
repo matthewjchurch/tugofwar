@@ -6,7 +6,8 @@
 }
 
 body {
-    background-color: #73C3EC;
+    background-color: #63C4EF;
+    height: 100vh;
 }
 
 header {
@@ -24,7 +25,13 @@ header {
         position: absolute;
         top: 10px;
         right: 10px;
+        padding: 5px;
     }
+}
+
+h2 {
+    height: 10%;
+    padding: 15px;
 }
 
 section {
@@ -36,10 +43,6 @@ section {
     p {
         display: inline;
     }
-}
-
-main {
-    height: 80%;
 }
 
 img {
